@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import axiosInstance from '../../axios-auth';
 
   export default {
     data () {
