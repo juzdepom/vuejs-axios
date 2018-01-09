@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import axiosInstance from '../../axios-auth';
+  import axios from '../../axios-auth';
 
   export default {
     data () {
@@ -105,7 +105,11 @@
           terms: this.terms
         }
         console.log(formData)
-        axios.post('/users.json', formData)
+        axios.post('/signupNewUser?key=AIzaSyCa23LBECfmUKFzFe5oOBDJbCabnycYPbU', {
+          email: formData.email,
+          password: formData.password,
+          returnSecureToken: true,
+          })
           .then(res => { console.log(res) })
           .catch(error => { console.log(error) })
       }
