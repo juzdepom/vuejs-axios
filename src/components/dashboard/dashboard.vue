@@ -2,7 +2,21 @@
   <div id="dashboard">
     <h1>That's the dashboard!</h1>
     <p>You should only get here if you're authenticated!</p>
-    <p v-if="email!=null">Your email address is {{ email }}</p>
+    <div v-if="user!=null">
+      <p>Your email address is {{ user.email }}</p>
+      <p>Your age is {{ user.age }}</p>
+      <template v-if="hobbies != null">
+        <template v-if="hobbies.length > 1">
+          <p>Your hobbies are: <span v-for="hobby in hobbies">{{ hobby }}, </span></p>
+        </template>
+        <template v-if="hobbies.length > 0 && hobbies.length < 2">
+          <p>Your hobby is: {{ hobbies[0] }} </p>
+        </template>
+      </template>
+
+
+    </div>
+
   </div>
 </template>
 
@@ -21,13 +35,15 @@
 
   export default {
     computed: {
-      email(){
-        const email = (this.$store.getters.user!=null) ? this.$store.getters.user.email : ""
-        return email
+      user(){
+        return (this.$store.getters.user!=null) ? this.$store.getters.user : null
+      },
+      hobbies(){
+        return (this.user!=null) ? this.user.hobbies : null
       }
     },
     beforeCreate(){
-      this.$store.dispatch('fetchUser')
+      // this.$store.dispatch('fetchUser')
     }
   }
 </script>

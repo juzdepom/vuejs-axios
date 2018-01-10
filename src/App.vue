@@ -15,6 +15,7 @@
 
     beforeCreate(){
       this.$store.dispatch('tryAutoLogin')
+      this.$store.dispatch('fetchUser')
     }
   }
 </script>
