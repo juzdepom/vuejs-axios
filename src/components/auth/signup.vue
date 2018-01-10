@@ -10,7 +10,7 @@
                   @blur="$v.email.$touch()"
                   v-model="email">
           <p v-if="!$v.email.email">Please provide a valid email address.</p>
-          <p v-if="!$v.email.required">This field must not be empty.</p>
+          <p style="color:black" v-if="!$v.email.required">This field must not be empty.</p>
         </div>
         <div class="input" :class="{invalid: $v.age.$error}">
           <label for="age">Your Age</label>
@@ -65,7 +65,7 @@
                       v-model="hobbyInput.value">
               <button @click="onDeleteHobby(hobbyInput.id)" type="button">X</button>
             </div>
-            <p v-if="!$v.hobbyInputs.required">Please add hobbies.</p>
+            <p style="color:black" v-if="!$v.hobbyInputs.required">Please add hobbies.</p>
             <p v-if="!$v.hobbyInputs.minLen">You have to specify a minimum of {{ $v.hobbyInputs.$params.minLen.min}} hobbies. </p>
           </div>
         </div>
@@ -80,7 +80,7 @@
           <label for="terms">Accept Terms of Use</label>
         </div>
         <div class="submit">
-          <button type="submit">Submit</button>
+          <button type="submit" :disabled="$v.$invalid">Submit</button>
         </div>
       </form>
     </div>
@@ -106,6 +106,9 @@
       email: {
         required,
         email,
+        custom: val => {
+          return val !="test@test.com"
+        }
       },
       age: {
         required,
