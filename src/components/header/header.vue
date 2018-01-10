@@ -14,6 +14,10 @@
         <li v-if="auth">
           <router-link to="/dashboard">Dashboard</router-link>
         </li>
+        <li v-if="auth">
+          <button @click="onLogout" class="logout">Logout</button>
+          <!-- <router-link to="/logout" class="logout">Log Out</router-link> -->
+        </li>
       </ul>
     </nav>
   </header>
@@ -24,6 +28,11 @@
     computed: {
       auth(){
         return this.$store.getters.isAuthenticated
+      }
+    },
+    methods: {
+      onLogout(){
+        this.$store.dispatch('logout')
       }
     }
   }
@@ -38,6 +47,14 @@
     align-items: center;
     background-color: #521751;
     padding: 0 20px;
+  }
+
+  .logout {
+    background-color: transparent;
+    border: none;
+    /*font: inherit, */
+    color: white;
+    font-size: 15px;
   }
 
   .logo {

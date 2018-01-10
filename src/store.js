@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from './axios-auth'
 import globalAxios from 'axios'
+import router from './router'
 
 Vue.use(Vuex)
 
@@ -12,12 +13,16 @@ export default new Vuex.Store({
     user: null,
   },
   mutations: {
-    authUser (state, userData) {
+    authUser  ( state, userData ) {
       state.idToken = userData.token
       state.userId = userData.userId
     },
-    storeUser (state, userData ) {
+    storeUser ( state, userData ) {
       state.user = userData
+    },
+    clearAuthData( state ){
+      state.idToken = null;
+      state.userId = null;
     }
   },
   actions: {
@@ -45,6 +50,10 @@ export default new Vuex.Store({
         .then(res => console.log(response))
         .catch(error => console.log('ERROR! ', error))
     },
+    logout({ commit }){
+      commit('clearAuthData')
+      router.displace('signin')
+    }
     signIn({ commit }, authData){
       axios.post('/verifyPassword?key=AIzaSyCa23LBECfmUKFzFe5oOBDJbCabnycYPbU', {
         email: authData.email,
