@@ -10,6 +10,7 @@
                   @blur="$v.email.$touch()"
                   v-model="email">
           <p v-if="!$v.email.email">Please provide a valid email address.</p>
+          <p v-if="!$v.email.custom">This email already has an account assigned to it.</p>
           <p style="color:black" v-if="!$v.email.required">This field must not be empty.</p>
         </div>
         <div class="input" :class="{invalid: $v.age.$error}">
@@ -89,6 +90,7 @@
 
 <script>
   import { required, email, numeric, minValue, minLength, sameAs, requiredUnless } from 'vuelidate/lib/validators'
+  import axios from 'axios'
   export default {
     data () {
       return {
@@ -107,7 +109,16 @@
         required,
         email,
         custom: val => {
-          return val !="test@test.com"
+          if(val == "") return true;
+          return axios.get('./users.json?orderBy="email"&equalTo="' + val + '"')
+            .then(res => {
+              return Object.keys(res.data).length == 0
+            })
+          return new Promise((resolve, reject) => [
+            setTimeout(() => {
+
+            }, 1000)
+          ])
         }
       },
       age: {
