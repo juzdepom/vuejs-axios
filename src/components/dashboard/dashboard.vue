@@ -22,7 +22,8 @@
   export default {
     computed: {
       email(){
-        return this.$store.getters.user.email
+        const email = (this.$store.getters.user!=null) ? this.$store.getters.user.email : ""
+        return email
       }
     },
     beforeCreate(){

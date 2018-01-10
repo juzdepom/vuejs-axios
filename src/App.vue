@@ -11,6 +11,10 @@
     name: 'app',
     components: {
       'app-header': Header
+    },
+
+    beforeCreate(){
+      this.$store.dispatch('tryAutoLogin')
     }
   }
 </script>
