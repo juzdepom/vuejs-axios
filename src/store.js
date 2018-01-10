@@ -12,6 +12,7 @@ export default new Vuex.Store({
     userId: null,
     user: null,
     email: null,
+    loginError: false,
   },
   mutations: {
     authUser( state, userData ) {
@@ -25,6 +26,10 @@ export default new Vuex.Store({
     clearAuthData( state ){
       state.idToken = null;
       state.userId = null;
+    },
+    loginError( state, error ) {
+      console.log('login error: ', error)
+      state.loginError = error
     }
   },
   actions: {
@@ -54,8 +59,9 @@ export default new Vuex.Store({
           localStorage.setItem('email', formData.email)
           dispatch('storeUser', formData )
           dispatch('setLogoutTimer', res.data.expiresIn)
+          router.replace('/dashboard')
         })
-        .catch(error => { console.log(error) })
+        .catch(error => { console.log('sign up error: ', error) })
 
     },
     storeUser({ commit, state }, userData){
@@ -94,7 +100,7 @@ export default new Vuex.Store({
       localStorage.removeItem('userId')
       localStorage.removeItem('email')
 
-      router.replace('/signin')
+      router.replace('/')
     },
     signIn({ commit, dispatch }, authData){
       axios.post('/verifyPassword?key=AIzaSyCa23LBECfmUKFzFe5oOBDJbCabnycYPbU', {
@@ -103,6 +109,7 @@ export default new Vuex.Store({
         returnSecureToken: true,
         })
         .then(res => {
+          commit('loginError', false)
           console.log(res)
           commit('authUser', {
             token: res.data.idToken,
@@ -120,7 +127,7 @@ export default new Vuex.Store({
           console.log('moving to dashboard')
           router.replace('/dashboard')
         })
-        .catch(error => { console.log("ERROR! ", error) })
+        .catch(error => { commit('loginError', true ) })
 
     },
     fetchUser({ commit, state }){
@@ -155,6 +162,9 @@ export default new Vuex.Store({
     },
     isAuthenticated(state){
       return state.idToken != null
+    },
+    loginError(state){
+      return state.loginError;
     }
   }
 })

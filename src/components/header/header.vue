@@ -6,6 +6,9 @@
     <nav>
       <ul>
         <li v-if="!auth">
+          <router-link to="/">Welcome</router-link>
+        </li>
+        <li v-if="!auth">
           <router-link to="/signup">Sign Up</router-link>
         </li>
         <li v-if="!auth">

@@ -20,6 +20,7 @@
           <button type="submit">Submit</button>
         </div>
       </form>
+      <p style="color: red" v-if="loginError"><i>Username or email is incorrect.</i></p>
     </div>
   </div>
 </template>
@@ -29,7 +30,13 @@
     data () {
       return {
         email: '',
-        password: ''
+        password: '',
+        error: false,
+      }
+    },
+    computed: {
+      loginError(){
+        return this.$store.getters.loginError
       }
     },
     methods: {
@@ -39,8 +46,10 @@
           password: this.password,
         }
         this.$store.dispatch('signIn', formData)
-      }
-    }
+      },
+
+
+    },
   }
 </script>
 

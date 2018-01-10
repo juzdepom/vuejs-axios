@@ -2,6 +2,8 @@
   <div id="welcome">
     <h1>Time to learn something new!</h1>
     <p>You found the best place to learn - and now you're just one sign in (or sign up) away from it!</p>
+    <p>*Hint*: try john@smith.com and password as password for login. Or try janedoe@gmail.com with password as password. </p>
+    <p>You can always check your database in firebase under vuejs-axios.</p>
     <div class="cta">
       <router-link to="/signup">Sign Up</router-link>
       <router-link to="/signin">Sign In</router-link>
