@@ -13,10 +13,7 @@
           <p>Your hobby is: {{ hobbies[0] }} </p>
         </template>
       </template>
-
-
     </div>
-
   </div>
 </template>
 

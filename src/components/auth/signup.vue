@@ -7,6 +7,7 @@
           <input
                   type="email"
                   id="email"
+                  @input="$v.email.$touch()"
                   v-model="email">
         </div>
         <div class="input">
@@ -69,6 +70,7 @@
 </template>
 
 <script>
+  import { required, email } from 'vuelidate/lib/validators'
   export default {
     data () {
       return {
@@ -81,6 +83,13 @@
         terms: false
       }
     },
+    // this property comes from Vuelidate
+    validations: {
+      email: {
+        required,
+        email,
+      }
+    }
     methods: {
       onAddHobby () {
         const newHobby = {

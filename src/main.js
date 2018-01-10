@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import axios from 'axios'
+import Vuelidate from 'vuelidate'
 
 import router from './router'
 import store from './store'
 
 axios.defaults.baseURL = "https://vuejs-axios-7909e.firebaseio.com"
 axios.defaults.headers.get['Accepts'] = 'application/json'
+
+Vue.use(Vuelidate)
 
 // const reqInt = axios.interceptors.request.use(config => {
 //   console.log('request: ' + JSON.stringify(config, null, 2))
