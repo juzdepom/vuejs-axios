@@ -9,8 +9,8 @@
                   id="email"
                   @blur="$v.email.$touch()"
                   v-model="email">
-          <p v-if="!$v.email.email">Please provide a valid email address.</p>
-          <p v-if="!$v.email.custom">This email already has an account assigned to it.</p>
+          <p class="error-message" v-if="!$v.email.email">Please provide a valid email address.</p>
+          <p class="error-message" v-if="!$v.email.custom">This email already has an account assigned to it.</p>
           <p style="color:black" v-if="!$v.email.required">This field must not be empty.</p>
         </div>
         <div class="input" :class="{invalid: $v.age.$error}">
@@ -182,13 +182,18 @@
 </script>
 
 <style scoped>
-
+  p.error-message {
+    color: red;
+    font-size: .74em;
+    line-height: 1;
+    margin-top: 5px;
+  }
 
   .input.invalid input {
     border: 1px solid red;
     background-color: #ffc9aa;
   }
-  .input.invalid label, p {
+  .input.invalid label {
     color: red;
   }
   .signup-form {

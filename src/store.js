@@ -135,20 +135,12 @@ export default new Vuex.Store({
           console.log('no id token')
           return
         }
-        globalAxios.get('/users.json' + "?auth=" + state.idToken + "&localId=" + state.userId)
-          .then(res => {
-            console.log(res)
-          })
         globalAxios.get('/users.json' + "?auth=" + state.idToken)
         .then(res => {
-          console.log("data: " + JSON.stringify(res.data, null, 2))
           const data = res.data
           // const users = []
           for (let key in data) {
-            console.log('state email ', state.email)
-            console.log('data[key].email ', data[key].email)
             if (state.email == data[key].email){
-              console.log(data[key])
               commit('storeUser', data[key])
             }
           }
