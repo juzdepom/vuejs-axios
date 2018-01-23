@@ -2,6 +2,8 @@
 
 > Vue Auth & more
 
+![Demo](demo.gif)
+
 ## Build Setup
 
 ``` bash
